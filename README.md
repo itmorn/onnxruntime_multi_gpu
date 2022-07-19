@@ -17,7 +17,7 @@ python vs_run_time.py
 # 2.部署onnx服务
 首先，编写gunicorn配置文件gunicorn_conf.py
 可以再step2_server_onnx.py里的set_process_gpu中根据显卡使用情况，分配进程
-##2.1.启动服务
+## 2.1.启动服务
 控制台执行
 ```commandline
 gunicorn -c gunicorn_conf.py step2_server_onnx:app
@@ -25,7 +25,7 @@ gunicorn -c gunicorn_conf.py step2_server_onnx:app
 ![](imgs/img_smi.png)
 可以看到我们在卡0上分配了3个进程，卡1上分配了2个进程
 
-##2.2.客户端调用
+## 2.2.客户端调用
 ```python
 python client.py
 # 等待所有线程执行完成
@@ -34,13 +34,13 @@ python client.py
 ```
 
 # 3.部署pytorch服务做对比
-##3.1.启动服务
+## 3.1.启动服务
 控制台执行
 ```commandline
 gunicorn -c gunicorn_conf.py step3_server_pytorch:app
 ```
 
-##3.2.客户端调用
+## 3.2.客户端调用
 ```python
 python client.py
 # 等待所有线程执行完成
