@@ -69,8 +69,8 @@ torch_data = torch.from_numpy(data).to(device)
 torch_model(torch_data)
 
 print("done")
-if __name__ == '__main__':
-    server = pywsgi.WSGIServer(('127.0.0.1', 7832), app)
-    server.serve_forever()
+# if __name__ == '__main__':
+#     server = pywsgi.WSGIServer(('127.0.0.1', 7832), app)
+#     server.serve_forever()
 #     # app.run(host="0.0.0.0", port=7832, debug=False)
 #     # app.run(host="127.0.0.1", port=7832, debug=False)

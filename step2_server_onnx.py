@@ -3,7 +3,7 @@ import os
 def set_process_gpu():
     # worker_id 从1开始，可以手工映射到对应的显卡
     worker_id = int(os.environ.get('APP_WORKER_ID', 1))
-    if worker_id <= 4:
+    if worker_id <= 3:
         gpu_index = 0
     else:
         gpu_index = 1
@@ -13,7 +13,6 @@ def set_process_gpu():
 
 device_id = set_process_gpu()
 
-import psutil
 import torch
 from flask import Flask
 from flask import request, jsonify
@@ -66,7 +65,7 @@ def method_name(img2):
         buffer_ptr=Y_tensor.data_ptr(),
     )
     # print(Y_tensor.data_ptr())
-    res = session.run_with_iobinding(io_binding)
+    session.run_with_iobinding(io_binding)
     prediction = torch.tensor(io_binding.get_outputs()[0].numpy()[0]).softmax(0)
     class_id = prediction.argmax().item()
     score = prediction[class_id].item()
@@ -98,7 +97,7 @@ def init():
         shape=tuple(Y_tensor.shape),
         buffer_ptr=Y_tensor.data_ptr(),
     )
-    res = session.run_with_iobinding(io_binding)
+    session.run_with_iobinding(io_binding)
     prediction = torch.tensor(io_binding.get_outputs()[0].numpy()[0]).softmax(0)
     class_id = prediction.argmax().item()
     score = prediction[class_id].item()

@@ -2,7 +2,7 @@ import os
 
 
 bind = '127.0.0.1:7832'
-workers = 2
+workers = 5
 timeout = 300
 # max_requests = 2000
 # max_requests_jitter = 500
