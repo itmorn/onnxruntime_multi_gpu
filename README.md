@@ -25,7 +25,7 @@ gunicorn -c gunicorn_conf.py step2_server_onnx:app
 ![](imgs/img_smi.png)
 可以看到我们在卡0上分配了3个进程，卡1上分配了2个进程
 
-## 2.2.客户端调用
+## 2.2.客户端调用（2k张图像）
 ```python
 python client.py
 # 753.7857494950294
@@ -41,7 +41,7 @@ python client.py
 gunicorn -c gunicorn_conf.py step3_server_pytorch:app
 ```
 
-## 3.2.客户端调用
+## 3.2.客户端调用（2k张图像）
 ```python
 python client.py
 # 753.7855133414268
@@ -49,6 +49,8 @@ python client.py
 # ===============close===============
 # 8.30529260635376
 ```
+可以看到onnx精度上几乎可以逼近pytorch，速度上onnx比pytorch快2.2秒，
+
 # 4.在ImageNet val（5w）上测试（8进程）
 ## 4.1. onnx结果
 19635.193501168862
