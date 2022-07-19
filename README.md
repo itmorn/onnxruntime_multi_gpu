@@ -17,7 +17,7 @@ python vs_run_time.py
 # 2.部署onnx服务
 首先，编写gunicorn配置文件gunicorn_conf.py
 可以再step2_server_onnx.py里的set_process_gpu中根据显卡使用情况，分配进程
-## 2.1.启动服务
+## 2.1.启动服务（5进程）
 控制台执行
 ```commandline
 gunicorn -c gunicorn_conf.py step2_server_onnx:app
@@ -28,13 +28,14 @@ gunicorn -c gunicorn_conf.py step2_server_onnx:app
 ## 2.2.客户端调用
 ```python
 python client.py
+# 753.7857494950294
 # 等待所有线程执行完成
 # ===============close===============
-# 7.635651588439941
+# 6.0930845737457275
 ```
 
 # 3.部署pytorch服务做对比
-## 3.1.启动服务
+## 3.1.启动服务（5进程）
 控制台执行
 ```commandline
 gunicorn -c gunicorn_conf.py step3_server_pytorch:app
@@ -43,8 +44,23 @@ gunicorn -c gunicorn_conf.py step3_server_pytorch:app
 ## 3.2.客户端调用
 ```python
 python client.py
+# 753.7855133414268
 # 等待所有线程执行完成
 # ===============close===============
-# 10.951372623443604
+# 8.30529260635376
 ```
+# 4.在ImageNet val（5w）上测试（8进程）
+## 4.1. onnx结果
+19635.193501168862
+等待所有线程执行完成
+===============close===============
+151.3771858215332
 
+## 4.2. pytorch结果
+19635.191890196875
+等待所有线程执行完成
+===============close===============
+171.36499762535095
+
+## 4.3. 结论
+onnx在精度上会有一定的损失，但是几乎不影响最终预测结果，速度上有显著优势

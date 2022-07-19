@@ -71,13 +71,14 @@ def method_name(img2):
     score = prediction[class_id].item()
     category_name = weights.meta["categories"][class_id]
     line = f"{category_name}: {100 * score:.1f}%"
-    print(line)
-    return jsonify({"ok": 1})
+    # print(line)
+    return jsonify({"ok": 1,"score": score})
 
 def init():
     img2 = torch.randn(3, 224, 224)
     img2 = img2.to(device)
     batch = preprocess(img2).unsqueeze(0)
+
     a =batch[0][0][0][0].cpu() # 需要访存一下，不然会导致有的样本直接预测出错，应该是一个底层bug
     io_binding = session.io_binding()
     io_binding.bind_input(

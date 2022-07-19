@@ -3,7 +3,7 @@ import os
 def set_process_gpu():
     # worker_id 从1开始，可以手工映射到对应的显卡
     worker_id = int(os.environ.get('APP_WORKER_ID', 1))
-    if worker_id <= 4:
+    if worker_id <= 3:
         gpu_index = 0
     else:
         gpu_index = 1
@@ -53,8 +53,8 @@ def method_name(img2):
     score = prediction[class_id].item()
     category_name = weights.meta["categories"][class_id]
     line = f"{category_name}: {100 * score:.1f}%"
-    print(line)
-    return jsonify({"ok": 1})
+    # print(line)
+    return jsonify({"ok": 1,"score": score})
 
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
