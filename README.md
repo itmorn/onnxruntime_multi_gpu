@@ -1,2 +1,2 @@
 # onnxruntime_multi_gpu
-深度学习模型使用onnxruntime进行多GPU部署
+当我们训练完成一个深度学习模型后，可以使用gunicorn+flask进行部署，其中使用onnxruntime框架进行模型推理加速做核心的计算，同时本项目还支持多GPU部署（还可以指定每张卡上部署的进程数）
